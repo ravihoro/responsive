@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:responsive/custom_drawer.dart';
+import 'package:responsive/drawer/custom_drawer.dart';
+import 'package:responsive/email_list/email_list.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
       body: Row(
         children: [
           CustomDrawer(),
+          EmailList(),
         ],
       ),
     );
