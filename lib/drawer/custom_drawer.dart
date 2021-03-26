@@ -10,13 +10,16 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Icon(
-            Icons.mail_outline,
-            size: 50,
-            color: Colors.blue,
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'images/logo_outlook.png',
+                ),
+              ),
+            ),
           ),
           SizedBox(
             height: 10,

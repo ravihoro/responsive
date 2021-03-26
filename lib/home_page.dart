@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive/drawer/custom_drawer.dart';
+import 'package:responsive/email_detail/email_detail.dart';
 import 'package:responsive/email_list/email_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,8 +9,18 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          CustomDrawer(),
-          EmailList(),
+          Expanded(
+            flex: 1,
+            child: CustomDrawer(),
+          ),
+          Expanded(
+            flex: 2,
+            child: EmailList(),
+          ),
+          Expanded(
+            flex: 6,
+            child: EmailDetail(),
+          ),
         ],
       ),
     );
