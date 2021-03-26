@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive/email_detail/email_detail.dart';
 import '../model/email.dart';
 import 'package:responsive/util/constants.dart';
 import '../util/responsive.dart';
@@ -30,7 +31,7 @@ class _EmailListState extends State<EmailList> {
               child: ListView.builder(
                 itemCount: Email.emails.length,
                 itemBuilder: (context, index) {
-                  return _emailCard(Email.emails[index]);
+                  return _emailCard(Email.emails[index], context);
                 },
               ),
             ),
@@ -95,56 +96,64 @@ class _EmailListState extends State<EmailList> {
     );
   }
 
-  Widget _emailCard(Email email) {
+  Widget _emailCard(Email email, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: kBgLightColor,
-        elevation: 10,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              ListTile(
-                leading: CircleAvatar(
-                  maxRadius: 20,
-                  backgroundImage: AssetImage(
-                    email.image,
+      child: InkWell(
+        onTap: Responsive.isDesktop(context)
+            ? () {}
+            : () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => EmailDetail()));
+              },
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: kBgLightColor,
+          elevation: 10,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: CircleAvatar(
+                    maxRadius: 20,
+                    backgroundImage: AssetImage(
+                      email.image,
+                    ),
+                  ),
+                  title: Text(
+                    email.name,
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  subtitle: Text(
+                    email.subject,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  trailing: Text(
+                    email.time,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                title: Text(
-                  email.name,
-                  style: TextStyle(
-                    fontSize: 15,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    email.body,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
                   ),
                 ),
-                subtitle: Text(
-                  email.subject,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-                trailing: Text(
-                  email.time,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  email.body,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                  maxLines: 2,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -2,25 +2,28 @@ import 'package:flutter/material.dart';
 import '../model/email.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../util/constants.dart';
+import '../util/responsive.dart';
 
 class EmailDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _headerIcons(),
-        Divider(
-          thickness: 1.0,
-          height: 5,
-        ),
-        _customListTile(),
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 88.0),
-            child: _emailBody(),
+    return Scaffold(
+      body: Column(
+        children: [
+          _headerIcons(context),
+          Divider(
+            thickness: 1.0,
+            height: 5,
           ),
-        ),
-      ],
+          _customListTile(),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 88.0),
+              child: _emailBody(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -166,7 +169,7 @@ class EmailDetail extends StatelessWidget {
     );
   }
 
-  Widget _headerIcons() {
+  Widget _headerIcons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 8.0,
@@ -174,6 +177,7 @@ class EmailDetail extends StatelessWidget {
       ),
       child: Row(
         children: [
+          Responsive.isDesktop(context) ? Container() : BackButton(),
           _customIcons(Icons.delete_outline),
           _customIcons(Icons.reply_outlined),
           _customIcons(Icons.reply_all_outlined),
