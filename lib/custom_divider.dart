@@ -7,7 +7,7 @@ class CustomDivider extends StatelessWidget {
       margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),
-      width: 125,
+      width: 250,
       height: 1.0,
       decoration: BoxDecoration(
         border: Border(

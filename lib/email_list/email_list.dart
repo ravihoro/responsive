@@ -1,62 +1,97 @@
 import 'package:flutter/material.dart';
 import '../model/email.dart';
 import 'package:responsive/util/constants.dart';
+import '../util/responsive.dart';
+import '../drawer/custom_drawer.dart';
 
-class EmailList extends StatelessWidget {
+class EmailList extends StatefulWidget {
+  @override
+  _EmailListState createState() => _EmailListState();
+}
+
+class _EmailListState extends State<EmailList> {
+  final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          _customSearch(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: Email.emails.length,
-              itemBuilder: (context, index) {
-                return _emailCard(Email.emails[index]);
-              },
-            ),
-          ),
-        ],
+    return Scaffold(
+      drawer: ConstrainedBox(
+        child: CustomDrawer(),
+        constraints: BoxConstraints(
+          maxWidth: 250,
+        ),
       ),
-      color: kBgDarkColor,
+      key: key,
+      body: Container(
+        child: Column(
+          children: [
+            _customSearch(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: Email.emails.length,
+                itemBuilder: (context, index) {
+                  return _emailCard(Email.emails[index]);
+                },
+              ),
+            ),
+          ],
+        ),
+        color: kBgDarkColor,
+      ),
     );
   }
 
   Widget _customSearch() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 10.0,
-        horizontal: 20.0,
-      ),
-      decoration: BoxDecoration(
-        color: kBgLightColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 10.0,
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                disabledBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
+    return Row(
+      children: [
+        Responsive.isDesktop(context)
+            ? Container()
+            : IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  key.currentState.openDrawer();
+                },
               ),
+        SizedBox(
+          width: 5,
+        ),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 20.0,
+            ),
+            decoration: BoxDecoration(
+              color: kBgLightColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      disabledBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

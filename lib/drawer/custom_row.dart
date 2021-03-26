@@ -36,6 +36,7 @@ class CustomRow extends StatelessWidget {
             : Container(
                 height: 15,
                 width: 15,
+                margin: const EdgeInsets.only(left: 50),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.red,
