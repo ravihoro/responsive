@@ -16,9 +16,10 @@ class CustomDrawer extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height: 100,
-                  width: 100,
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(
+                    //color: Colors.black,
                     image: DecorationImage(
                       image: AssetImage(
                         'images/logo_outlook.png',
